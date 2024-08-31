@@ -1,2 +1,2 @@
 project_id = "interpreta"
-region = "us-central1"
+region     = "us-central1"
