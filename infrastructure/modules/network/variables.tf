@@ -8,12 +8,7 @@ variable "region" {
   description = "The google cloud region to deploy to"
 }
 
-variable "zone" {
-  type        = string
-  description = "The google cloud zone to deploy to"
-}
-
 variable "ip_cidr_range" {
-  type        = string
-  description = "IP range for the subnet"
+    type = string
+    description = "IP range for the subnet"
 }
