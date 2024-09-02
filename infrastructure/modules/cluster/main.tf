@@ -4,6 +4,13 @@ resource "google_service_account" "default" {
   display_name = "${var.project_id}-cluster-sa"
 }
 
+// Required to pull images from artifact registry 
+resource "google_project_iam_member" "artifact_registry_admin" {
+  project = var.project_id
+  role    = "roles/artifactregistry.admin"
+  member  = "serviceAccount:${google_service_account.default.email}"
+}
+
 resource "google_container_cluster" "primary" {
   project = var.project_id
   name     = "${var.project_id}-gke"
@@ -43,8 +50,7 @@ resource "google_container_node_pool" "primary_nodes" {
     # Google recommends custom service accounts that have cloud-platform scope and permissions granted via IAM Roles.
     service_account = google_service_account.default.email
     oauth_scopes    = [
-      "https://www.googleapis.com/auth/logging.write",
-      "https://www.googleapis.com/auth/monitoring",
+      "https://www.googleapis.com/auth/cloud-platform"
     ]
   }
 }
