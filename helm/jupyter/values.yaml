@@ -7,3 +7,13 @@ singleuser:
 proxy:
   service:
     type: ClusterIP 
+  
+hub:
+  config:
+    Authenticator:
+      admin_users:
+        - shayan
+    DummyAuthenticator:
+      password: <PLACEHOLDER>
+    JupyterHub:
+      authenticator_class: dummy
