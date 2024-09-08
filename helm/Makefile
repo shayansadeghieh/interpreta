@@ -17,6 +17,7 @@ upgrade:
 .PHONY: uninstall
 uninstall:
 	@helm uninstall jhub 
+	@kubectl delete po --all --namespace jhub 
 	
 .PHONY: proxy
 proxy: # start up jupyter server on http://localhost:8080
