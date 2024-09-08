@@ -3,3 +3,7 @@ singleuser:
     name: us-central1-docker.pkg.dev/interpreta/dev/test
     tag: latest
   cmd: null
+
+proxy:
+  service:
+    type: ClusterIP 

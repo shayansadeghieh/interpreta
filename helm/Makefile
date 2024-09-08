@@ -1,10 +1,8 @@
-# Apply the custom jupyter.yaml to override the default values in the chart 
 .PHONY: upgrade
 upgrade:
 	@helm upgrade --cleanup-on-fail \
   	jupyter-hub jupyterhub/jupyterhub \
   	--namespace jhub \
-  	--version=3.3.8 \
   	--values jupyter/values.yaml 
 
 .PHONY: install
@@ -17,4 +15,8 @@ install:
 .PHONY: uninstall
 uninstall:
 	@helm uninstall jhub 
+	
+.PHONY: proxy
+proxy: # start up jupyter server on http://localhost:8080
+	@kubectl --namespace=jhub port-forward service/proxy-public 8080:http
 	
