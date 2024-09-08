@@ -1,15 +1,17 @@
-.PHONY: upgrade
-upgrade:
-	@helm upgrade --cleanup-on-fail \
-  	jupyter-hub jupyterhub/jupyterhub \
-  	--namespace jhub \
-  	--values jupyter/values.yaml 
-
 .PHONY: install
 install: 
 	@helm install jhub jupyterhub/jupyterhub \
 	--namespace jhub \
 	--values jupyter/values.yaml \
+	--debug
+
+.PHONY: upgrade
+upgrade:
+	@helm upgrade --cleanup-on-fail \
+	jhub jupyterhub/jupyterhub \
+	--namespace jhub \
+	--values jupyter/values.yaml \
+	--values jupyter/secrets.yaml \
 	--debug
 
 .PHONY: uninstall
