@@ -1,24 +1,34 @@
 # interpreta
 
-Interpreta is an experimentation platform that allows for mechanistic interpretability of large language models. 
+Interpreta is a GKE based experimentation platform that allows for mechanistic interpretability of large language models. 
 
 Features include:
 - Notebook environment backed by a k8s cluster, which allows for memory intensive experiments from the comfort of a notebook.
-- Notebooks will have all of your favourite ML/interpretability packages preinstalled through a custom dockerfile. This dockerfile can be altered to add or remove any packages. For now, I'll include Neel Nanda's favourite tools/packages. He built an open source version of garçon that is great. 
-
+- Notebooks will have all of your favourite ML/interpretability packages preinstalled through a custom dockerfile.
+  
+  Mech Interp packages include:
+```
+    "torch==2.5.1" \
+    "einops==0.8.0" \
+    "jaxtyping==0.2.36" \
+    "tqdm==4.67.1" \
+    "numpy==1.26.4" \
+    "transformer-lens==2.9.1" \
+    "sae-lens==5.2.0" \
+    "plotly==5.24.0" \
+    "transformers==4.47.0" \
+    "huggingface_hub==0.27.0"
+```
 
 ## Stack 
 
-- k8s cluster infrastructure: terraform.
-- k8s cluster resources: kubectl/manifests. 
-- k8s cluster packages: managed through helm. 
-- Containers: docker. 
+terraform, helm, docker
 
 ## Setup instructions
 
 FYI, I aliased `kubectl` with `k`. 
 
-1. TODO: Instructions on creating remote tfstate file and spinning up infra. 
+1. Assuming you've set up your terraform backend within GCP, run a `terraform apply` within `infrastructure/environments/dev`. This will spin up your cluster. 
 2. Run `k get nodes`. You should see two nodes.
     ```
     NAME                                                  STATUS   ROLES    AGE     VERSION
