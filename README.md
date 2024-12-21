@@ -1,6 +1,6 @@
 # interpreta
 
-Interpreta is a GKE-powered managed notebook environment for mech interp research. 
+Interpreta is a GKE-powered managed notebook environment for mechanistic interpretability research. Born from the resource limitations of online notebook environments, it provides researchers complete control over compute resources and dependencies for running large-scale experiments.
 
 ![logo](assets/logo.png)
 
@@ -12,7 +12,7 @@ Interpreta is a GKE-powered managed notebook environment for mech interp researc
 
 ### Packages
 
-On `python 3.11.6`, 
+Python environment: `python 3.11.6`
 
 ```
     "torch==2.5.1" \
