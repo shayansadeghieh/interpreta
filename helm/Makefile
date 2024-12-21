@@ -3,6 +3,7 @@ install:
 	@helm install jhub jupyterhub/jupyterhub \
 	--namespace jhub \
 	--values jupyter/values.yaml \
+	--values jupyter/secrets.yaml \
 	--debug
 
 .PHONY: upgrade
