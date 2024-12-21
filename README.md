@@ -1,6 +1,6 @@
 # interpreta
 
-Interpreta is a GKE-powered managed notebook environment for mechanistic interpretability research. Born from the resource limitations of online notebook environments, it provides researchers complete control over compute resources and dependencies for running large-scale experiments.
+Interpreta is a GKE-powered managed notebook environment for mechanistic interpretability research. Born from the resource limitations of online notebook environments, it provides researchers complete control over what compute resources they want and dependencies for running large-scale experiments.
 
 ![logo](assets/logo.png)
 
@@ -8,7 +8,7 @@ Interpreta is a GKE-powered managed notebook environment for mechanistic interpr
 ## Features 
 - Python and jupyter notebook environment are already setup  
 - Mech interp packages are setup
-- Whatever machine you want is setup
+- Whatever machine you want within the Google ecosystem is setup. Currently it is an n1-standard-1.
 
 ### Packages
 
