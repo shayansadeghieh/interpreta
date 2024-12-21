@@ -2,12 +2,15 @@
 
 Interpreta is a GKE-powered experimentation platform for conducting large-scale mechanistic interpretability research on large language models through a managed Jupyter environment.
 
+![logo](assets/logo.png)
 
-Features include:
+
+## Features 
 - Managed notebook environment backed by a k8s cluster, which allows for memory intensive experiments from the comfort of a notebook.
 - Notebooks will have all of your favourite ML/interpretability packages preinstalled through a custom dockerfile.
-  
-  Mech Interp packages include:
+
+### Packages
+
 ```
     "torch==2.5.1" \
     "einops==0.8.0" \
