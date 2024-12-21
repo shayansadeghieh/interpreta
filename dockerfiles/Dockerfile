@@ -1,5 +1,5 @@
 # Use the base notebook image from Jupyter
-FROM jupyter/base-notebook:latest
+FROM jupyter/base-notebook:python-3.11.6
 
 # Install additional packages using pip
 RUN pip install --no-cache-dir \
