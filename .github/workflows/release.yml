@@ -87,12 +87,17 @@ jobs:
           # Get the previous tag or go back to the beginning if no tags exist
           PREV_TAG=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo $(git rev-list --max-parents=0 HEAD))
           
-          echo "RELEASE_NOTES<<EOF" >> $GITHUB_OUTPUT
-          echo "# Release v${{ steps.bump_version.outputs.new_version }}" >> $GITHUB_OUTPUT
-          echo "" >> $GITHUB_OUTPUT
-          echo "## Commits in this release" >> $GITHUB_OUTPUT
-          git log ${PREV_TAG}..HEAD --pretty=format:"* %h - %s (%an)" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+          # Generate release notes to a file
+          RELEASE_NOTES_FILE="${RUNNER_TEMP}/release_notes.md"
+          echo "# Release v${{ steps.bump_version.outputs.new_version }}" > "${RELEASE_NOTES_FILE}"
+          echo "" >> "${RELEASE_NOTES_FILE}"
+          echo "## Commits in this release" >> "${RELEASE_NOTES_FILE}"
+          git log ${PREV_TAG}..HEAD --pretty=format:"* %h - %s (%an)" >> "${RELEASE_NOTES_FILE}"
+          
+          # Set the release notes content using the GitHub Actions special delimiter syntax
+          echo "RELEASE_NOTES<<RELEASE_DELIMITER" >> $GITHUB_OUTPUT
+          cat "${RELEASE_NOTES_FILE}" >> $GITHUB_OUTPUT
+          echo "RELEASE_DELIMITER" >> $GITHUB_OUTPUT
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
