@@ -15,6 +15,9 @@ on:
           - minor
           - patch
 
+permissions:
+  contents: write
+
 jobs:
   version:
     name: Semantic Versioning and Release
