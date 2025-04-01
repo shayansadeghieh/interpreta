@@ -15,6 +15,7 @@ on:
           - minor
           - patch
 
+# Permissions to write to the repo to allow updating of VERSION file           
 permissions:
   contents: write
 
