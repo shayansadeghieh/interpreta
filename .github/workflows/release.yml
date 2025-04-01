@@ -1,5 +1,9 @@
 name: Semantic Versioning Pipeline
 
+# Add permissions to allow pushing
+permissions:
+  contents: write
+
 on:
   push:
     branches: [ main ]
@@ -14,10 +18,6 @@ on:
           - major
           - minor
           - patch
-
-# Permissions to write to the repo to allow updating of VERSION file           
-permissions:
-  contents: write
 
 jobs:
   version:
@@ -81,12 +81,25 @@ jobs:
           git tag -a "v${{ steps.bump_version.outputs.new_version }}" -m "Release v${{ steps.bump_version.outputs.new_version }}"
           git push --follow-tags
 
+      - name: Generate release notes with commits
+        id: release_notes
+        run: |
+          # Get the previous tag or go back to the beginning if no tags exist
+          PREV_TAG=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo $(git rev-list --max-parents=0 HEAD))
+          
+          echo "RELEASE_NOTES<<EOF" >> $GITHUB_OUTPUT
+          echo "# Release v${{ steps.bump_version.outputs.new_version }}" >> $GITHUB_OUTPUT
+          echo "" >> $GITHUB_OUTPUT
+          echo "## Commits in this release" >> $GITHUB_OUTPUT
+          git log ${PREV_TAG}..HEAD --pretty=format:"* %h - %s (%an)" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
           tag_name: v${{ steps.bump_version.outputs.new_version }}
           name: Release v${{ steps.bump_version.outputs.new_version }}
-          body: "Release v${{ steps.bump_version.outputs.new_version }}"
+          body: ${{ steps.release_notes.outputs.RELEASE_NOTES }}
           draft: false
           prerelease: false
           token: ${{ secrets.GITHUB_TOKEN }}
